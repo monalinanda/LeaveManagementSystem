@@ -19,8 +19,8 @@ const EmployeeLeaveHomepage = () => {
     return rev;
   };
   console.log(reverse(1234))
-  const { signedInUser , isUserAuthenticated} = useStateContext();
-  console.log(signedInUser,isUserAuthenticated,"signedInUser")
+  //const { signedInUser , isUserAuthenticated} = useStateContext();
+  //console.log(signedInUser,isUserAuthenticated,"signedInUser")
   const checkListData = ["Design your Leave plan in private","submit your leave plan to notify" , "we'll guied you  through any paperwork needed for you to recive your full pay"  ,"we ensure  a smooth transition  back to your work "]
   return (
     <div className=" w-full h-auto mt-20 pl-5 pr-5">

@@ -1,14 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
-  const { loginWithRedirect, logout, isAuthenticated,user } = useAuth0();
   const[signedInUser , SetSignedInUser]=useState();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const isUserAuthenticated = isAuthenticated;
   //let user = JSON.parse(localStorage.getItem('user')) 
   //const [selectedUser , setSelectedUser] = useState(user);
   const [userType, setUserType] = useState("");
@@ -53,19 +50,13 @@ export const StateContext = ({ children }) => {
       
 //       }
 //   }
-  useEffect(()=>{
-    SetSignedInUser(user);
-    //fetchTotalleavesUpdate()
-    console.log(isUserAuthenticated,"isUserAuthenticated")
-
-},[isUserAuthenticated])
+ 
 
   return (
     <Context.Provider
       value={{
         email,
         password,
-        isUserAuthenticated,
         userType,
         //selectedUser,
         totalLeave,

@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -15,8 +15,7 @@ function classNames(...classes) {
 }
 
 const Navbar = () => {
-  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
-  console.log(window.location)
+ 
   return (
     <Disclosure as="nav" className="">
       {({ open }) => (
@@ -66,7 +65,7 @@ const Navbar = () => {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* login Button */}
 
-                {isAuthenticated ? (
+                {/* {isAuthenticated ? ( */}
                   <>
                   <div>
                   <img
@@ -87,9 +86,9 @@ const Navbar = () => {
                     Log Out
                   </button>
                   </>
-                ) : (
-                  <button  className="text-primary hover:bg-secondary hover:text-white rounded-md px-3 py-2 text-sm font-medium ml-3" onClick={() => loginWithRedirect()}>Log In</button>
-                )}
+                <a href="/login">
+                  <button  className="text-primary hover:bg-secondary hover:text-white rounded-md px-3 py-2 text-sm font-medium ml-3" >Log In</button>
+                </a>
 
     
               </div>
