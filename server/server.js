@@ -67,10 +67,7 @@ await server.start();
 // and our expressMiddleware function.
 app.use(
   "/graphql",
-  cors({
-    origin: "https://leave-management-system-2n72-f0wuqrd48-monalinandas-projects.vercel.app  ",
-    credentials: true,
-  }),
+  cors(),
   express.json(),
 
   // expressMiddleware accepts the same arguments:
