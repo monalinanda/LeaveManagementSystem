@@ -7,7 +7,7 @@
       "use": "@vercel/node"
     }
   ],
-    "rewrites": [
+    "routes": [
    {
     "source": "/graphql",
      "destination": "server/server.js"
