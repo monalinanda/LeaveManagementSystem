@@ -60,31 +60,26 @@ const server = new ApolloServer({
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 
-const corsConfig = {
-  origin: 'https://leave-management-system-2n72-f0wuqrd48-monalinandas-projects.vercel.app',
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-};
-
-// Apply CORS middleware
-app.use(cors(corsConfig));
-app.options('*', cors(corsConfig));
-
-// Parse JSON bodies
-app.use(express.json());
-
-
 // Ensure we wait for our server to start
 await server.start();
 
 // Set up our Express middleware to handle CORS, body parsing,
 // and our expressMiddleware function.
- app.use(
-    '/graphql',
-    expressMiddleware(server, {
-      context: async ({ req, res }) => buildContext({ req, res }),
-    })
-  );
+app.use(
+  "/graphql",
+  cors({
+  origin: "https://leave-management-system-2n72-f0wuqrd48-monalinandas-projects.vercel.app  ",
+  credentials: true,
+}),
+  express.json(),
+
+  // expressMiddleware accepts the same arguments:
+  // an Apollo Server instance and optional configuration options
+  expressMiddleware(server, {
+    context: async ({ req, res }) => buildContext({ req, res }),
+   
+  })
+);
 
 // npm run build will build your frontend app, and it will the optimized version of your app
 //  app.use(express.static(path.join(__dirname, "frontend/dist")));
