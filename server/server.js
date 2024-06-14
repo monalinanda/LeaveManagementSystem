@@ -19,7 +19,7 @@ import mergedTypeDefs from "./typeDefs/index.js";
 import { connectDB } from "./db/connectDB.js";
 import { configurePassport } from "./passport/passport.config.js";
 
-const port =  4000;
+//const port =  4000;
 
 dotenv.config();
 configurePassport();
@@ -89,7 +89,7 @@ app.get("*", (req, res) => {
 });
 
 // Modified server startup
-await new Promise((resolve) => httpServer.listen({ port: port }, resolve));
+// await new Promise((resolve) => httpServer.listen({ port: port }, resolve));
 await connectDB();
 
 console.log(`🚀 Server ready at ${port}`);
