@@ -3,14 +3,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "server.js",
+      "src": "server/server.js",
       "use": "@vercel/node"
     }
   ],
     "rewrites": [
    {
     "source": "/graphql",
-     "destination": "/"
+     "destination": "server/server.js"
    }
   ]
 }
