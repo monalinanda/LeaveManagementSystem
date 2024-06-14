@@ -1,6 +1,6 @@
 
 const PublicNavigation = [
-    { name: "About", href: "/", current: true },
+    {name: "Home Page", href: "/", current: true },
     { name: "Customers", href: "/customers", current: false },
     { name: "Pricing", href: "/pricing", current: false }
   ];
