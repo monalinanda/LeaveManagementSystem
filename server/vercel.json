@@ -7,10 +7,10 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
-    {
-      "src": "/graphql",
-      "dest": "/"
-    }
+    "rewrites": [
+   {
+    "source": "/graphql",
+     "destination": "/"
+   }
   ]
 }
