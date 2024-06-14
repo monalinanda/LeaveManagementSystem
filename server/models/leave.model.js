@@ -6,18 +6,44 @@ const leaveSchema = new mongoose.Schema({
 		ref: "User",
 		required: true,
 	},
-	name: {
+	name:{
+		type: String,
+		ref: "User",
+		required: true,
+	},
+	email:{
+		type: String,
+		ref: "User",
+		required: true,
+	},
+	category: {
 		type: String,
 		required: true,
 	},
-	details: {
+	subject: {
 		type: String,
 		required: true,
 	},
-	createdOn: {
-		type: Date,
+	description: {
+		type: String,
 		required: true,
 	},
+	leavestart: {
+		type: String,
+		required: true,
+	},
+	leaveend: {
+		type: String,
+		required: true,
+	},
+	manageremail:{
+		type: String,
+		required: true,
+	},
+	status:{
+		type: String,
+		required: true,
+	}
 });
 
 const leave = mongoose.model("Leave", leaveSchema);

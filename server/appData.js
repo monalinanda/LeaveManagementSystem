@@ -2,25 +2,31 @@
 // Projects
 const leaves = [
     {
-        name : "other",
-        details:"other",
-        createdOn: "8 Mar 2024 ",
-        status : "Active",
-        action :"Edit"
+		_id : 1,
+		description :"njkkhj",
+		subject:"ghgh" ,
+		category :"ghg",
+		leavestart:"gfgfg",
+		leaveend:"ghgh",
+		manageremail:"gh"
     },
     {
-        name : "Medical Leave",
-        details :"NA",
-        createdOn : "8 Mar 2024 ",
-        status  : "Active",
-        action :"Edit"
+		_id : 1,
+		description :"njkkhj",
+		subject:"ghgh" ,
+		category :"ghg",
+		leavestart:"gfgfg",
+		leaveend:"ghgh",
+		manageremail:"gh"
     },
     {
-        name : "Casual Leave",
-        details :"NA",
-        createdOn : "8 Mar 2024 ",
-        status  : "Active",
-        action :"Edit"
+		_id : 1,
+		description :"njkkhj",
+		subject:"ghgh" ,
+		category :"ghg",
+		leavestart:"gfgfg",
+		leaveend:"ghgh",
+		manageremail:"gh"
     }
   ];
   
@@ -30,11 +36,12 @@ const leaves = [
 	{
 		_id: "1",
 		username: "user1",
-		name: "monali",
+		name: "user1",
 		password: "password1",
 		profilePicture: "profile1.jpg",
 		gender: "male",
-        userType : "employee",
+        userType : "engineer",
+		email: ""
 	},
 	{
 		_id: "2",
@@ -44,6 +51,7 @@ const leaves = [
 		profilePicture: "profile2.jpg",
 		gender: "female",
         userType : "HR",
+		email:""
 	},
 	{
 		_id: "3",
@@ -53,6 +61,7 @@ const leaves = [
 		profilePicture: "profile3.jpg",
 		gender: "male",
         userType : "manager",
+		email:""
 	},
 	{
 		_id: "4",
@@ -62,6 +71,7 @@ const leaves = [
 		profilePicture: "profile4.jpg",
 		gender: "female",
         userType : "manager",
+		email:""
 	},
 	{
 		_id: "5",
@@ -71,35 +81,9 @@ const leaves = [
 		profilePicture: "profile5.jpg",
 		gender: "male",
         userType : "manager",
+		email:""
 	},
 ];
 
 
-  // users
-//   const users = [{
-//     "name" : "TestUser Sharma",
-//     "email": "testUser@xyz.com",
-//     "password":"Test@123",
-//     "userType" : "employee",
-//     "userId" : 1
-// },
-// {
-//     "name" : "TestManager Sahoo",
-//     "email": "testManager@xyz.com",
-//     "password":"Test@1234",
-//     "userType" : "manager",
-//     "userId" : 2 ,
-//     "employees":[{
-//         "name" : "monali"
-//     }
-//     ]
-// },
-// {
-//     "name" : "TestHR Ojha",
-//     "email": "testHRr@xyz.com",
-//     "password":"Test@1235",
-//     "userType" : "HR",
-//     "userId" : 3
-// }
-// ]
   export  { leaves, users };

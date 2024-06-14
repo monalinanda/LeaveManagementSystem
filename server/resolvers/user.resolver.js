@@ -1,5 +1,4 @@
 
-import Leave from "../models/leave.model.js";
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 
@@ -7,9 +6,9 @@ const userResolver = {
 	Mutation: {
 		signUp: async (_, { input }, context) => {
 			try {
-				const { username, name, password, gender , userType} = input;
+				const { username, name, email, password, gender , userType} = input;
 
-				if (!username || !name || !password || !gender || !userType) {
+				if (!username || !name || !email || !password || !gender || !userType) {
 					throw new Error("All fields are required");
 				}
 				const existingUser = await User.findOne({ username }); //check user is exists in database or not 
@@ -27,6 +26,7 @@ const userResolver = {
 				const newUser = new User({
 					username,
 					name,
+					email,
 					password: hashedPassword,
 					gender,
                     userType,
@@ -90,17 +90,6 @@ const userResolver = {
 			}
 		},
 	},
-	// User: {
-	// 	transactions: async (parent) => {
-	// 		try {
-	// 			const transactions = await Transaction.find({ userId: parent._id });
-	// 			return transactions;
-	// 		} catch (err) {
-	// 			console.log("Error in user.transactions resolver: ", err);
-	// 			throw new Error(err.message || "Internal server error");
-	// 		}
-	// 	},
-	// },
 };
 
  export default userResolver;

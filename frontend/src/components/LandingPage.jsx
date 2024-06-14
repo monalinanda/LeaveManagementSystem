@@ -2,8 +2,11 @@ import Navbar from "./Navbar";
 import leaveCalender from "../assets/leaveCalender.svg";
 import parentalLeave from "../assets/parentalLeave.svg";
 import sickLeave from "../assets/sickLeave.svg";
+import { PublicNavigation } from "../constants/constant";
 export default function LandingPage() {
   return (
+    <>  
+    <Navbar navigation={PublicNavigation}/>
    <div className=" w-full h-auto mt-20 pl-5 pr-5">
     <div className=" max-w-6xl m-auto flex  flex-col items-center">
     <h1 className="sm:text-6xl text-3xl font-thin tracking-tight text-primary font-serif text-center sm:leading-relaxed leading-normal" > Discover the new age of streamlined employee leave processes</h1>
@@ -15,5 +18,6 @@ export default function LandingPage() {
     </div>
     </div>
    </div>
+   </>
   )
 }

@@ -1,13 +1,10 @@
 import React from 'react';
-import Dashboard from './Dashboard';
-
+import EmployeeLeaveHomepage from './leave/EmployeeLeaveHomepage';
 
 const Home = () => {
   return (
     <div>
-      {/* <Navbar/>
-        <Sidebar/> */}
-        <Dashboard/>
+        <EmployeeLeaveHomepage/>
     </div>
   )
 }

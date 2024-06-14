@@ -12,6 +12,10 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		email:{
+			type: String,
+			unique: true,
+		},
 		password: {
 			type: String,
 			required: true,
@@ -26,7 +30,7 @@ const userSchema = new mongoose.Schema(
 		},
         userType:{
             type: String,
-            enum: ["hr", "employee" , "manager"],
+            enum: ["HR", "Engineer" , "Manager"],
         }
 	},
 	{ timestamps: true }

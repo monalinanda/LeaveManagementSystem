@@ -1,21 +1,30 @@
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
-
-const navigation = [
-  { name: "Home", href: "/", current: true },
-  { name: "Customers", href: "/customers", current: false },
-  { name: "Pricing", href: "#", current: false },
-  { name: "Company", href: "#", current: false },
-];
+import { Disclosure } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { GET_AUTHENTICATED_USER } from "../graphql/queries/user.Query";
+import { LOGOUT } from "../graphql/mutations/user.mutation";
+import { useQuery, useMutation } from "@apollo/client";
+import toast from "react-hot-toast";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Navbar = () => {
- 
+const Navbar = ({ navigation }) => {
+  const [logout, { loading, client }] = useMutation(LOGOUT, {
+    refetchQueries: ["GetAuthenticatedUser"],
+  });
+  const handleLogout = async () => {
+    try {
+      await logout();
+      // Clear the Apollo Client cache FROM THE DOCS
+      // https://www.apollographql.com/docs/react/caching/advanced-topics/#:~:text=Resetting%20the%20cache,any%20of%20your%20active%20queries
+      client.resetStore();
+    } catch (error) {
+      console.error("Error logging out:", error);
+      toast.error(error.message);
+    }
+  };
+
   return (
     <Disclosure as="nav" className="">
       {({ open }) => (
@@ -36,11 +45,13 @@ const Navbar = () => {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
+                  <a href="/">
                   <img
                     className="h-8 w-auto"
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
+                    alt="LeaveSync"
                   />
+                  </a>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
@@ -63,34 +74,27 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {/* login Button */}
-
-                {/* {isAuthenticated ? ( */}
-                  <>
+                <>
                   <div>
-                  <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
+                    <img
+                      className="h-8 w-8 rounded-full"
+                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      alt=""
+                    />
                   </div>
                   <button
-                  className="text-primary hover:bg-secondary hover:text-white rounded-md px-3 py-2 text-sm font-medium ml-3"
-                    onClick={() =>
-                      logout({
-                        logoutParams: { returnTo: window.location.origin },
-                      })
-                    }
+                    className="text-primary hover:bg-secondary hover:text-white rounded-md px-3 py-2 text-sm font-medium ml-3"
+                    onClick={handleLogout}
                   >
                     {" "}
                     Log Out
                   </button>
-                  </>
+                </>
                 <a href="/login">
-                  <button  className="text-primary hover:bg-secondary hover:text-white rounded-md px-3 py-2 text-sm font-medium ml-3" >Log In</button>
+                  <button className="text-primary hover:bg-secondary hover:text-white rounded-md px-3 py-2 text-sm font-medium ml-3">
+                    Log In
+                  </button>
                 </a>
-
-    
               </div>
             </div>
           </div>
@@ -104,8 +108,8 @@ const Navbar = () => {
                   href={item.href}
                   className={classNames(
                     item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      ? "bg-secondary text-white"
+                      : "text-primary hover:bg-gray-700 hover:text-white",
                     "block rounded-md px-3 py-2 text-base font-medium"
                   )}
                   aria-current={item.current ? "page" : undefined}

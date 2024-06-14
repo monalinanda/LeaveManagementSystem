@@ -1,3 +1,5 @@
+//Schema
+
 const userTypeDef = `#graphql
   type User {
     _id: ID!
@@ -6,7 +8,8 @@ const userTypeDef = `#graphql
     password: String!
     profilePicture: String
     gender: String!
-    # transactions: [Transaction!]
+    email: String!
+    userType: String!
   }
 
   type Query {
@@ -25,6 +28,8 @@ const userTypeDef = `#graphql
     name: String!
     password: String!
     gender: String!
+    userType: String!
+    email: String!
   }
 
   input LoginInput {

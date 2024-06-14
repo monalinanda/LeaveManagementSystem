@@ -1,61 +1,84 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Customers from "./components/Customers";
 import LoginPage from "./components/LoginPage";
 import Home from "./components/Home";
-// import LeaveType from "./components/LeaveType";
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/Sidebar";
 import { StateContext } from "./utils/StateContext";
-// import useMediaList from "./hooks/useUserLogin";
-// import NewLeaveForm from "./components/leave/NewLeaveForm";
-import LeavLists from "./components/leave/LeavLists";
 import LandingPage from "./components/LandingPage";
-import EmployeeLeaveHomepage from "./components/leave/EmployeeLeaveHomepage";
-
+import SignUpPage from "./components/SignUpPage";
+import PrivateRoutes from "./utils/PrivateRoute";
+import PublicRoutes from "./utils/PublicRoute";
+import Dashboard from "./components/Dashboard";
+import RootLayout from "./components/RootLayout";
+import LeavePlan from "./components/leave/LeavePlan";
+import EngineersLeaves from "./components/leave/EngineersLeaves";
+import LeavePolicy from "./components/LeavePolicy";
+import Customers from "./components/Customers";
+import Pricing from "./components/Pricing";
 
 function App() {
-  // useMediaList();
-
-  const appRouter = createBrowserRouter([
+  const router = createBrowserRouter([
     {
       path: "/",
-      element: <LandingPage />,
+      element: <RootLayout />,
+
+      children: [
+        {
+          element: <PrivateRoutes />,
+          children: [
+            {
+              path: "/home",
+              element: <Home />,
+            },
+            {
+              path: "/leavePlan",
+              element: <LeavePlan />,
+            },
+            {
+              path: "/dashboard",
+              element: <Dashboard />,
+            },
+            {
+              path: "/engineers-leave",
+              element: <EngineersLeaves />,
+            },
+            {
+              path: "/leave-policy",
+              element: <LeavePolicy />,
+            },
+          ],
+        },
+        {
+          element: <PublicRoutes />,
+          children: [
+            {
+              path: "/",
+              element: <LandingPage />,
+            },
+            {
+              path: "/login",
+              element: <LoginPage />,
+            },
+            {
+              path: "/signup",
+              element: <SignUpPage />,
+            },
+            {
+              path: "/customers",
+              element: <Customers />,
+            },
+            {
+              path: "/pricing",
+              element: <Pricing />,
+            },
+          ],
+        },
+      ],
     },
-    {
-      path: "/login",
-      element: <LoginPage />,
-    },
-    {
-      path: "/customers",
-      element: <Customers />,
-    },
-    // {
-    //   path: "/leave-type-list",
-    //   element: <LeaveType />,
-    // },
-    // {
-    //   path: "/leave-create-update",
-    //   element: <NewLeaveForm />,
-    // },
-    {
-      path: "/leave-list",
-      element: <LeavLists />,
-    },
-    {
-      path: "/employee-leave-page",
-      element: <EmployeeLeaveHomepage />,
-    },
-   
   ]);
+
   return (
- <StateContext>
-      <Navbar />
-      <div className=" flex sm:gap-1  flex-col w-screen h-screen items-center ">
-        <div className=" max-w-[90%] pl-5 pr-5">
-          <RouterProvider router={appRouter} />
-        </div>
-      </div>
-      </StateContext>
+    <StateContext>
+      <RouterProvider router={router} />
+    </StateContext>
   );
 }
 
