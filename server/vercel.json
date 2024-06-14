@@ -9,7 +9,7 @@
   ],
     "routes": [
    {
-    "source": "/graphql",
+    "src": "/graphql",
      "destination": "server/server.js"
    }
   ]
