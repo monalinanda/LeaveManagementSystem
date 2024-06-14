@@ -89,7 +89,7 @@ app.get("*", (req, res) => {
 });
 
 // Modified server startup
-// await new Promise((resolve) => httpServer.listen({ port: port }, resolve));
+await new Promise((resolve) => httpServer.listen({ port: port }, resolve));
 await connectDB();
 
 console.log(`🚀 Server ready at ${port}`);
