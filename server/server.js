@@ -68,7 +68,7 @@ await server.start();
 app.use(
   "/graphql",
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://leave-management-system-2n72.vercel.app/",
     credentials: true,
   }),
   express.json(),
