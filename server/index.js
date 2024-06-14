@@ -61,6 +61,7 @@ const server = new ApolloServer({
 });
 
 // Ensure we wait for our server to start
+
 await server.start();
 
 // Set up our Express middleware to handle CORS, body parsing,
