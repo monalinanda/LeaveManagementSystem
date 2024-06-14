@@ -10,6 +10,9 @@ const client = new ApolloClient({
 	uri: "https://leave-management-system-dwtm.vercel.app/graphql" ,  // the URL of our GraphQL server.
 	cache: new InMemoryCache(), // Apollo Client uses to cache query results after fetching them.
 	credentials: "include", // This tells Apollo Client to send cookies along with every request to the server.
+	 fetchOptions: {
+       		 mode: 'no-cors'
+      }
 });
 
 ReactDOM.createRoot(document.getElementById('root')).render(
