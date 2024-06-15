@@ -67,9 +67,8 @@ await server.start();
 // Set up our Express middleware to handle CORS, body parsing,
 // and our expressMiddleware function.
 app.use(
-  "/graphql",
   cors({
-  origin: "https://leave-management-system-frontend.vercel.app", 
+  origin: "https://leave-management-system-frontend.vercel.app/graphql", 
   credentials: true,
 }),
   express.json(),
