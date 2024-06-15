@@ -75,7 +75,7 @@ const corsConfig = {
 app.use(cors(corsConfig));
 app.options('*', cors(corsConfig));
 
-app.use(express.json());
+//app.use(express.json());
 
 
 
@@ -84,6 +84,7 @@ app.use(express.json());
   // Apply Apollo middleware
   app.use(
     '/graphql',
+    express.json(),
     expressMiddleware(server, {
       context: async ({ req, res }) => buildContext({ req, res }),
     })
