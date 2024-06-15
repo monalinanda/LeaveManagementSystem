@@ -90,9 +90,9 @@ app.use(express.json());
   );
 
   // Start the Express server
-  app.listen(4000, () => {
-    console.log('Server is running on http://localhost:4000/graphql');
-  });
+  // app.listen(4000, () => {
+  //   console.log('Server is running on http://localhost:4000/graphql');
+  // });
 
 
 // Start the server and handle errors
@@ -100,7 +100,7 @@ app.use(express.json());
 //   console.error('Error starting server:', err);
 // });
 
-//await new Promise((resolve) => httpServer.listen({ port: port }, resolve));
+await new Promise((resolve) => httpServer.listen({ port: port }, resolve));
 await connectDB();
 
 
