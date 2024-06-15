@@ -62,24 +62,64 @@ const server = new ApolloServer({
 
 // Ensure we wait for our server to start
 
-await server.start();
+//await server.start();
 
 // Set up our Express middleware to handle CORS, body parsing,
 // and our expressMiddleware function.
-app.use(
-  cors({
-  origin: "https://leave-management-system-frontend.vercel.app/graphql", 
-  credentials: true,
-}),
-  express.json(),
 
-  // expressMiddleware accepts the same arguments:
-  // an Apollo Server instance and optional configuration options
-  expressMiddleware(server, {
-    context: async ({ req, res }) => buildContext({ req, res }),
+const corsConfig = {
+  origin: 'https://leave-management-system-frontend.vercel.app',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+};
+
+app.use(cors(corsConfig));
+app.options('*', cors(corsConfig));
+
+app.use(express.json());
+
+
+
+  await server.start();
+
+  // Apply Apollo middleware
+  app.use(
+    '/graphql',
+    expressMiddleware(server, {
+      context: async ({ req, res }) => buildContext({ req, res }),
+    })
+  );
+
+  // Start the Express server
+  app.listen(4000, () => {
+    console.log('Server is running on http://localhost:4000/graphql');
+  });
+
+
+// Start the server and handle errors
+// startServer().catch((err) => {
+//   console.error('Error starting server:', err);
+// });
+
+//await new Promise((resolve) => httpServer.listen({ port: port }, resolve));
+await connectDB();
+
+
+// app.use(
+//   "/graphql",
+//   cors({
+//   origin: " http://localhost:5173", 
+//   credentials: true,
+// }),
+//   express.json(),
+
+//   // expressMiddleware accepts the same arguments:
+//   // an Apollo Server instance and optional configuration options
+//   expressMiddleware(server, {
+//     context: async ({ req, res }) => buildContext({ req, res }),
    
-  })
-);
+//   })
+// );
 
 // npm run build will build your frontend app, and it will the optimized version of your app
 //  app.use(express.static(path.join(__dirname, "frontend/dist")));
@@ -89,7 +129,6 @@ app.use(
 // });
 
 // Modified server startup
-await new Promise((resolve) => httpServer.listen({ port: port }, resolve));
-await connectDB();
+
 
 console.log(`🚀 Server ready at ${port}`);
