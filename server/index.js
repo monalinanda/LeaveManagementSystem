@@ -58,6 +58,8 @@ const server = new ApolloServer({
   typeDefs: mergedTypeDefs,
   resolvers: mergedResolvers,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  introspection: true,
+  playground: true,
 });
 
 // Ensure we wait for our server to start
