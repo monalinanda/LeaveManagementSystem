@@ -62,6 +62,8 @@ const server = new ApolloServer({
   playground: true,
 });
 
+  await server.start();
+
 // Ensure we wait for our server to start
 
 //await server.start();
@@ -78,10 +80,6 @@ app.use(cors(corsConfig));
 app.options('*', cors(corsConfig));
 
 //app.use(express.json());
-
-
-
-  await server.start();
 
   // Apply Apollo middleware
   app.use(
