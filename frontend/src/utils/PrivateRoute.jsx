@@ -6,7 +6,7 @@ import { GET_AUTHENTICATED_USER } from "../graphql/queries/user.Query";
 function PrivateRoute({ children }) {
   const { loading, data } = useQuery(GET_AUTHENTICATED_USER);
 
- // if (loading) return null;
+ if (loading) return null;
 
   const authenticatedUser = data?.authUser;
 
