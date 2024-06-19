@@ -39,8 +39,8 @@ app.use(
       maxAge: 1000 * 60 * 60 * 24 * 7,
 // this option prevents the Cross-Site Scripting (XSS) attacks
        httpOnly: false,
-      sameSite: "None",
-      secure: true,
+     // sameSite: "None",
+      //secure: true,
     },
     store: store,
   })
