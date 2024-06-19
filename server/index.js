@@ -30,8 +30,8 @@ store.on("error", (err) => console.log(err));
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
-        resave: false, // this option specifies whether to save the session to the store on every request
-        saveUninitialized: false, // option specifies whether to save uninitialized sessions
+        resave: false,
+        saveUninitialized: false,
         cookie: {
             maxAge: 1000 * 60 * 60 * 24 * 7,
             httpOnly: false,
@@ -52,9 +52,13 @@ const corsConfig = {
 };
 
 app.use(cors(corsConfig));
-
-// Enable preflight OPTIONS requests for all routes
 app.options('*', cors(corsConfig));
+
+// Log requests to help debug
+app.use((req, res, next) => {
+    console.log(`Received request: ${req.method} ${req.url}`);
+    next();
+});
 
 const server = new ApolloServer({
     typeDefs: mergedTypeDefs,
@@ -78,8 +82,14 @@ app.use(
     })
 );
 
+// Custom error handler to catch CORS issues
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
+});
+
 // Start the Express server
-app.listen(port, () => {
+httpServer.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}/graphql`);
 });
 await connectDB();
