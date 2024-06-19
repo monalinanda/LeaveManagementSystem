@@ -36,19 +36,30 @@ app.use(
             maxAge: 1000 * 60 * 60 * 24 * 7,
             httpOnly: false,
             sameSite: "none",
-            secure: auto,
+            secure: process.env.NODE_ENV === 'production',
         },
         store: store,
     })
 );
 app.use(passport.initialize());
 app.use(passport.session());
+
+const corsConfig = {
+    origin: "https://leave-management-system-frontend.vercel.app",
+    credentials: true,
+    methods: ['GET', 'OPTIONS', 'PATCH', 'DELETE', 'POST', 'PUT'],
+    allowedHeaders: ['X-CSRF-Token', 'X-Requested-With', 'Accept', 'Accept-Version', 'Content-Length', 'Content-MD5', 'Content-Type', 'Date', 'X-Api-Version']
+};
+
+app.use(cors(corsConfig));
+
+// Enable preflight OPTIONS requests for all routes
+app.options('*', cors(corsConfig));
+
 const server = new ApolloServer({
     typeDefs: mergedTypeDefs,
     resolvers: mergedResolvers,
-    plugins: [ApolloServerPluginDrainHttpServer({
-        httpServer
-    })],
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     introspection: true,
     playground: {
         settings: {
@@ -58,31 +69,18 @@ const server = new ApolloServer({
 });
 
 await server.start();
-const corsConfig = {
-    origin: "*",
-    credentials: true,
-    methods: ['GET', 'OPTIONS', 'PATCH', 'DELETE', 'POST', 'PUT'],
-    allowedHeaders: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-};
-app.use(cors());
-// app.options('*', cors(corsConfig));
-// Apply Apollo middleware
+
 app.use(
     '/graphql',
     express.json(),
     expressMiddleware(server, {
-        context: async ({
-            req,
-            res
-        }) => buildContext({
-            req,
-            res
-        }),
+        context: async ({ req, res }) => buildContext({ req, res }),
     })
 );
+
 // Start the Express server
-app.listen(4000, () => {
-    console.log('Server is running on http://localhost:4000/graphql');
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}/graphql`);
 });
 await connectDB();
 console.log(`🚀 Server ready at ${port}`);
