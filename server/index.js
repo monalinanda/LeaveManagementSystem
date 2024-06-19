@@ -61,7 +61,7 @@ const server = new ApolloServer({
 // Set up our Express middleware to handle CORS, body parsing,
 // and our expressMiddleware function.
 const corsConfig = {
-  origin: ['https://leave-management-system-frontend.vercel.app','https://studio.apollographql.com']
+  origin: ['https://leave-management-system-frontend.vercel.app','https://studio.apollographql.com'] ,
   credentials: true , 
   methods: ['GET', 'POST', 'PUT', 'DELETE']
 };
