@@ -37,7 +37,7 @@ app.use(
     saveUninitialized: false, // option specifies whether to save uninitialized sessions
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7,
-      httpOnly: true, // this option prevents the Cross-Site Scripting (XSS) attacks
+// this option prevents the Cross-Site Scripting (XSS) attacks
       sameSite: 'none',
       secure: true
     },
