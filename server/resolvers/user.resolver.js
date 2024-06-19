@@ -73,8 +73,8 @@ const userResolver = {
 	Query: {
 		authUser: async (_, __, context) => {
 			try {
-				const User = await context.getUser();
-				return User;
+				const user = await context.getUser();
+				return user;
 			} catch (err) {
 				console.error("Error in authUser: ", err);
 				throw new Error("Internal server error");
