@@ -52,7 +52,11 @@ const server = new ApolloServer({
   resolvers: mergedResolvers,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   introspection: true,
-  playground: true,
+  playground: {
+    settings: {
+      'request.credentials': 'same-origin',
+    },
+  },
 });
 
   await server.start();
