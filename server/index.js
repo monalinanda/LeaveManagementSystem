@@ -37,6 +37,7 @@ app.use(
             httpOnly: false,
             sameSite: 'none',
             secure: true,
+            domain:"https://leave-management-system-backend.vercel.app/"
         },
         store: store,
     })
