@@ -9,8 +9,8 @@ import connectMongo from "connect-mongodb-session";
 
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
-//import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
-import { ApolloServerPluginLandingPageLocalDefault, ApolloServerPluginLandingPageProductionDefault } from '@apollo/server/plugin/landingPage/default';
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
+//import { ApolloServerPluginLandingPageLocalDefault, ApolloServerPluginLandingPageProductionDefault } from '@apollo/server/plugin/landingPage/default';
 
 import { buildContext } from "graphql-passport";
 
@@ -58,15 +58,9 @@ app.use(passport.session());
 const server = new ApolloServer({
   typeDefs: mergedTypeDefs,
   resolvers: mergedResolvers,
-  plugins: [
-    // Install a landing page plugin based on NODE_ENV
-    process.env.NODE_ENV === 'production'
-      ? ApolloServerPluginLandingPageProductionDefault({
-          graphRef: 'my-graph-id@my-graph-variant',
-          footer: false,
-        })
-      : ApolloServerPluginLandingPageLocalDefault({ footer: false }),
-  ],
+  plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  introspection: true,
+  playground: true,
 });
 
   await server.start();
