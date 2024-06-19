@@ -36,11 +36,12 @@ app.use(
             maxAge: 1000 * 60 * 60 * 24 * 7,
             httpOnly: false,
             sameSite: "none",
-            secure: process.env.NODE_ENV === 'production',
+            secure: true,
         },
         store: store,
     })
 );
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -50,13 +51,16 @@ const corsConfig = {
     methods: ['GET', 'OPTIONS', 'PATCH', 'DELETE', 'POST', 'PUT'],
     allowedHeaders: ['X-CSRF-Token', 'X-Requested-With', 'Accept', 'Accept-Version', 'Content-Length', 'Content-MD5', 'Content-Type', 'Date', 'X-Api-Version']
 };
-
 app.use(cors(corsConfig));
 app.options('*', cors(corsConfig));
+
 
 // Log requests to help debug
 app.use((req, res, next) => {
     console.log(`Received request: ${req.method} ${req.url}`);
+    res.on('header', () => {
+        console.log('Response headers:', res.getHeaders());
+    });
     next();
 });
 
