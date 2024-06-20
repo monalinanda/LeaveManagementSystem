@@ -36,7 +36,7 @@ app.use(
             maxAge: 1000 * 60 * 60 * 24 * 7,
            // httpOnly: false,
             sameSite: 'none',
-            secure: false,
+            secure: true,
            // domain: 'leave-management-system-frontend.vercel.app'
             
         },
