@@ -31,13 +31,13 @@ app.use(
     session({
         secret: process.env.SESSION_SECRET,
         resave: false,
-        saveUninitialized: false,
+        saveUninitialized: true,
        cookie: {
             maxAge: 1000 * 60 * 60 * 24 * 7,
-            httpOnly: false,
-            sameSite: 'lax',
-            secure: true,
-            domain: 'leave-management-system-frontend.vercel.app'
+           // httpOnly: false,
+            //sameSite: 'lax',
+           secure: false
+           // domain: 'leave-management-system-frontend.vercel.app'
             
         },
         store: store,
