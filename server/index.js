@@ -38,6 +38,7 @@ app.use(
             sameSite: 'none',
             secure: false,
             domain: 'leave-management-system-frontend.vercel.app'
+            
         },
         store: store,
     })
