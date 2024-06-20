@@ -32,24 +32,19 @@ app.use(
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
-        cookie: {
-        secure: true,
-        sameSite: 'none',
-        maxAge: 1000 * 60 * 60 * 24 * 7,,
-        domain: '.domain.com'
-    },
+       cookie: {
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+            httpOnly: false,
+            sameSite: 'lax',
+            secure: true,
+            domain: 'leave-management-system-frontend.vercel.app'
+            
+        },
         store: store,
     })
 );
 
-// cookie: {
-        //     maxAge: 1000 * 60 * 60 * 24 * 7,
-        //     httpOnly: false,
-        //     sameSite: 'none',
-        //     secure: false,
-        //     domain: 'leave-management-system-frontend.vercel.app'
-            
-        // },
+
 app.use(passport.initialize());
 app.use(passport.session());
 
