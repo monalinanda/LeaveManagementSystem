@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputField from "../ui/InputField";
 import Button from "../ui/Button";
 import { useMutation } from "@apollo/client";
 import { CREATE_LEAVE } from "../../graphql/mutations/leave.mutation";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import SelectInput from "../../components/ui/SelectInput";
+import { useOutletContext } from "react-router-dom";
 
-const LeaveReasons = ({ selectedCategory }) => {
+const LeaveReasons = ({ selectedCategory, managers }) => {
   const navigate = useNavigate();
-
+  const { authenticatedUser } = useOutletContext();
+  const [managersList, setManagersList] = useState([]);
   const [requestedLeaveData, setRequestedLeaveData] = useState({
     description: "",
     subject: "",
@@ -21,6 +24,14 @@ const LeaveReasons = ({ selectedCategory }) => {
   const [createLeave, { loading }] = useMutation(CREATE_LEAVE, {
     refetchQueries: ["GetLeaves"],
   });
+
+  useEffect(() => {
+    const manager = managers?.managers.filter(
+      (item) => item.email !== authenticatedUser.email
+    );
+    const managersemail = manager?.map((item) => item.email);
+    setManagersList(managersemail);
+  }, [managers]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,6 +56,7 @@ const LeaveReasons = ({ selectedCategory }) => {
       toast.error("All fields are equired.");
     }
   };
+
   return (
     <>
       <Toaster />
@@ -59,14 +71,21 @@ const LeaveReasons = ({ selectedCategory }) => {
           value={requestedLeaveData.subject}
           onChange={handleChange}
         />
-        <InputField
+        <SelectInput
+          options={managersList && managersList}
+          value={requestedLeaveData.manageremail}
+          name="manageremail"
+          onChange={handleChange}
+          label="Manager Email"
+        />
+        {/* <InputField
           type="text"
           label="Manager Email"
           id="manageremail"
           name="manageremail"
           value={requestedLeaveData.manageremail}
           onChange={handleChange}
-        />
+        /> */}
         <InputField
           type="date"
           label="Leave Start"

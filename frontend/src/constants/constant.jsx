@@ -19,7 +19,6 @@ const PublicNavigation = [
   ]
   
   const UserTypes = [
-    { value: "HR", label: "HR" },
     { value: "Manager", label: "Manager" },
     { value: "Engineer", label: "Engineer" },
   ];

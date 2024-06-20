@@ -89,6 +89,15 @@ const userResolver = {
 				throw new Error(err.message || "Error getting user");
 			}
 		},
+		managers: async () => {
+			try {
+				const managers = await User.find({ userType: "Manager"});
+				return managers;
+			} catch (err) {
+				console.error("Error in user query:", err);
+				throw new Error(err.message || "Error getting user");
+			}
+		}
 	},
 };
 

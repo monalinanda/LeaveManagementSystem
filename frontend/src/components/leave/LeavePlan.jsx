@@ -1,14 +1,17 @@
 import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import { allLeavs } from "../../constants/constant";
 import RadioButton from "../ui/RadioButton";
 import Button from "../ui/Button";
 import previous from "../../assets/previous.png";
 import LeaveReasons from "./LeaveReasons";
+import { GET_MANAGERS } from "../../graphql/queries/user.Query";
 
 const LeavePlan = () => {
   const [isShow, setIsShow] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const { data: managers } = useQuery(GET_MANAGERS);
 
   const handleClick = () => {
     setIsShow(false);
@@ -55,6 +58,7 @@ const LeavePlan = () => {
             <LeaveReasons
               id="LeaveReasons"
               selectedCategory={selectedCategory}
+              managers={managers}
             />
           </>
         )}
