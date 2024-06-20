@@ -35,7 +35,7 @@ app.use(
        cookie: {
             maxAge: 1000 * 60 * 60 * 24 * 7,
            // httpOnly: false,
-            //sameSite: 'lax',
+            sameSite: 'none',
            secure: false
            // domain: 'leave-management-system-frontend.vercel.app'
             
