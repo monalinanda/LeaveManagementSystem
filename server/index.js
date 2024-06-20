@@ -27,7 +27,10 @@ const store = new MongoDBStore({
     collection: "sessions",
 });
 store.on("error", (err) => console.log(err));
-  app.set('trust proxy', 1);
+if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', 1);
+}
+
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
@@ -35,12 +38,10 @@ app.use(
         saveUninitialized: true,
          cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7,
-      //httpOnly: true,
       sameSite: 'none',
       secure: true,
-      //domain
   },
-            store: store,
+     store: store,
     })
 );
 
